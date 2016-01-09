@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-ui-bootstrap/ui-bootstrap.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">
+</head>
+<body ng-app='app'>
+<div id="scenario-comparison"  ng-controller="scenarioComparisonController as scn">
+    <div id="title-block">
+        <span ng-click="scn.isCollapsed=!scn.isCollapsed">
+            <span class="glyphicon" ng-class="{'glyphicon-triangle-bottom': !scn.isCollapsed, 'glyphicon-triangle-right': scn.isCollapsed}">
+                <span id="title">
+                    Scenario Comparisons
+                </span>
+            </span>
+        </span>
+    </div>
+    <div uib-collapse="scn.isCollapsed">
+        <div class="tabs col-md-10 col-md-offset-1">
+            <ul>
+                <li ng-click="scn.activeTab = 0" ng-class="{'active': scn.activeTab===0}">Project Info</li>
+            	<li ng-click="scn.activeTab = 1" ng-class="{'active': scn.activeTab===1}">Energy Production</li>
+            	<li ng-click="scn.activeTab = 2" ng-class="{'active': scn.activeTab===2}">Asset Valuation</li>
+            	<li ng-click="scn.activeTab = 3" ng-class="{'active': scn.activeTab===3}">Financing</li>
+            </ul>
+        </div>
+        <div class="scenario-selection col-md-10 col-md-offset-1">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                        </td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            <div class="btn-group" uib-dropdown>
+                                <button class="btn btn-primary btn-scenario" uib-dropdown-toggle>
+                                    <span class="scenario-text">{{"Scenario " + ss.id}}</span>
+                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                </button>
+                                <ul uib-dropdown-menu role="menu">
+                                    <li role="menuitem" ng-repeat="s in scn.scenarios">
+                                        <a class="scenario-menuitem" ng-click="scn.selectedScenarios[$parent.$index]=scn.scenarios[$index]">{{"Scenario " + s.id}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong>Asset Case</strong>
+                        </td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            <span class="asset-id">{{"A-"+ss.asset_id}}</span>
+                            {{scn.getAsset(ss.asset_id).description}}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <strong>Capital Structure</strong>
+                        </td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            <span class="cap-id">{{"C-"+ss.capital_structure_id}}</span>
+                            {{scn.getStruct(ss.capital_structure_id).description}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong>Stress Test</strong> 
+                        </td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            <span class="stress-id" ng-if="ss.stress_id">{{"S-"+ss.stress_id}}</span>
+                            {{scn.getStress(ss.stress_id).description || '-'}}
+                        </td>
+                    </tr>
+                </tbody>
+
+
+                <tbody class="tab" ng-show="scn.activeTab == 0">
+                    <tr ng-repeat="(k,v) in scn.scenarios[0]" >
+                        <td class="col-md-2"><strong>{{k}}</strong></td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            {{ss[k]}}
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tbody class="tab" ng-show="scn.activeTab == 1">
+                    <tr ng-repeat="(k,v) in scn.capStructs[0]" >
+                        <td class="col-md-2"><strong>{{k}}</strong></td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            {{scn.getStruct(ss.capital_structure_id)[k]}}
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tbody class="tab" ng-show="scn.activeTab == 2">
+                    <tr ng-repeat="(k,v) in scn.assets[0]" >
+                        <td class="col-md-2"><strong>{{k}}</strong></td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            {{scn.getAsset(ss.asset_id)[k]}}
+                        </td>
+                    </tr>
+                </tbody>
+
+                <tbody class="tab" ng-show="scn.activeTab == 3">
+                    <tr ng-repeat="(k,v) in scn.stress[0]" >
+                        <td class="col-md-2"><strong>{{k}}</strong></td>
+                        <td ng-repeat="ss in scn.selectedScenarios track by $index">
+                            {{scn.getStress(ss.stress_id)[k]}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script src="app/app.js"></script>
+<script src="app/scenarioComparisson.controller.js"></script>
+<script src="app/scenario.service.js"></script>
+</body>
+</html>

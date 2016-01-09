@@ -1,0 +1,127 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.tabs > ul > li {
+    display: inline-block;
+    padding: 20px;
+    text-transform: uppercase;
+    color: #435d74;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tabs {
+    margin-left: 3.4%;
+}
+
+.active {
+}
+
+.active:after {
+    content: '';
+    width: 100%;
+    background: #435d74;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    display: block;
+    height: 2px;
+}
+
+table.table > tbody > tr > td {
+    border: 2px solid #ebeff2;
+    text-align: center;
+    line-height: 30px;
+    font-size: 13px;
+    letter-spacing: 0px;
+    padding: 0px;
+}
+
+table.table > tbody > tr > td:first-of-type {
+    text-align: left;
+    padding-left: 8px; 
+}
+
+table.table > tbody:first-of-type > tr: {
+    border-bottom: none;
+}
+
+table.table > tbody:first-of-type > tr:first-of-type > td {
+    border: none;
+    text-align: center;
+    padding-bottom: 16px;
+}
+
+table.table {
+    border-top: none;
+}
+
+button.btn-scenario {
+    border-radius: 0;
+    background: #1a324e;
+    padding: 9px;
+}
+
+#title-block {
+    margin: 10px;
+    cursor: pointer;
+    display: block;
+}
+
+#title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    text-transform: uppercase;
+    color: #4a95f0;
+    font-weight: 100 ;
+    letter-spacing: 2px;
+}
+
+.asset-id {
+    background: #62aed2;
+    color: white;
+    float: left;
+    margin-left: 10px;
+    height: 19px;
+    line-height: 20px;
+    padding: 0 5px 0 5px;
+    margin-top: 6px;
+    border: none;
+}
+.cap-id {
+    background: #4ac656;
+    color: white;
+    float: left;
+    margin-left: 10px;
+    height: 19px;
+    line-height: 20px;
+    padding: 0 5px 0 5px;
+    margin-top: 6px;
+    border: none;
+}
+
+.stress-id {
+    background: #ff5045;
+    color: white;
+    float: left;
+    margin-left: 10px;
+    height: 19px;
+    line-height: 20px;
+    padding: 0 5px 0 5px;
+    margin-top: 6px;
+    border: none;
+}
+
+.scenario-text {
+    padding-right: 10px;
+}
+
+.scenario-menuitem {
+    cursor: pointer;
+}
+
+#title-block > span > span.glyphicon {
+    color: #4a95f0;
+}
